@@ -1,21 +1,40 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+
+import CardStock from "./src/components/CardStock";
+
+import { stockList } from "./src/utils/const";
+
+import { Wrapper, Contatent } from "./index";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+
+import Ticket from "./src/components/Ticket";
+
+const Stack = createStackNavigator();
+
+const StockList = () => {
+  return (
+    <Wrapper>
+      <Contatent>
+        {stockList.map((stock) => (
+          <CardStock stock={stock} key={stock} />
+        ))}
+      </Contatent>
+    </Wrapper>
+  );
+};
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="Stock" component={StockList} />
+        <Stack.Screen name="Ticket" component={Ticket} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
